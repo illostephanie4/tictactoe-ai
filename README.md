@@ -18,18 +18,22 @@ def play(board):
     # returns: integer from 0-8 representing the next move.
 ```
 **Board Mapping:**
+```
 | 0 | 1 | 2 |
 | 3 | 4 | 5 |
 | 6 | 7 | 8 |
+```
 
 Example input:
 ```python
 ['','x','x','o','','','','','']
 ```
 represents:
+```
 |   | X | X |
 | O |   |   |
 |   |   |   |
+```
 
 ## Running the Code
 Make sure you have Python 3.x installed.
