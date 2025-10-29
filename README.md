@@ -52,6 +52,7 @@ print("AI chooses: ", move)
 
 ## Author
 **Stephanie Illo**
+
 _Data Science and AI Enthusiast_
 
 ## Notes
