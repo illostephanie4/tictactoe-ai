@@ -18,3 +18,39 @@ def play(board):
     # returns: integer from 0-8 representing the next move.
 ```
 **Board Mapping:**
+| 0 | 1 | 2 |
+| 3 | 4 | 5 |
+| 6 | 7 | 8 |
+
+Example input:
+```python
+['','x','x','o','','','','','']
+```
+represents:
+|   | X | X |
+| O |   |   |
+|   |   |   |
+
+## Running the Code
+Make sure you have Python 3.x installed.
+
+Run the file directly:
+```bash
+python tictactoe_ai.py
+```
+Or use it inside another script:
+```python
+from tictactoe_ai import play
+board = ['','x','x','o','','','','','']
+move = play(board)
+print("AI chooses: ", move)
+```
+
+## Author
+**Stephanie Illo**
+_Data Science and AI Enthusiast_
+
+## Notes
+* This is a **rule-based AI**, not a learning model.
+* It shows how to design a simple **knowledge-based reasoning system** for games.
+* Followed logical priority to make consistent and legal moves.
