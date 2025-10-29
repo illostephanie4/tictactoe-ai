@@ -1,22 +1,18 @@
-# Rule-based Tic Tac Toe AI
-# Follows simple priorities: win > Block > Center > Corner > Any
-
-import random
-
 def play(board):
     """
-    Receives: board (list of 9 strings: 'x', 'o', or '')
-    Returns: index (0-8) for next move based on simple rules
+    Rule-based AI for Tic-Tac-Toe.
+    Receives: board (list of 9 strings: 'x', 'o', or '').
+    Returns: index (0-8) for next move based on simple rules.
+    The first player is always 'x'
     """
 
     # Define players based on current turn
     x_count = board.count('x')
     o_count = board.count('o')
-    ai = 'o' if x_count > o_count else 'x' # it is o's turn if x has played more
-    opponent = 'x' if ai == 'o' else 'o'
+    turn = 'x' if x_count == o_count else 'o'
 
-    # All winning lines (using indices)
-    WINS = [
+    # All winning combinations (using indices)
+    wins = [
         [0,1,2],
         [3,4,5],
         [6,7,8],
@@ -27,39 +23,31 @@ def play(board):
         [2,4,6]
     ]
 
-    # Helper to find winning moves
-    def find_winning_move(symbol):
-        for win in WINS:
-            symbols = [board[i] for i in win]
-            if symbols.count(symbol) == 2 and symbols.count('') == 1:
-                return win[symbols.index('')]
-        return None
+    # Rule 1: If we can win this turn, take it
+    for a, b, c in wins:
+        line = [board[a], board[b], board[c]]
+        if line.count(turn) == 2 and line.count('') == 1:
+            return [a, b, c][line.index('')]
 
-    # Rule 1: Win if possible
-    move = find_winning_move(ai)
-    if move is not None:
-        return move
+    # Rule 2: Block opponent if they can win next turn
+    opponent = 'o' if turn == 'x' else 'x'
+    for a, b, c in wins:
+        line = [board[a], board[b], board[c]]
+        if line.count(opponent) == 2 and line.count('') == 1:
+            return [a, b, c][line.index('')]
 
-    # Rule 2: Block opponent
-    move = find_winning_move(opponent)
-    if move is not None:
-        return move
-
-    # Rule 3: Take center
+    # Rule 3: Take the center if free
     if board[4] == '':
         return 4
 
-    # Rule 4: Take a corner
-    corners = [0,2,6,8]
-    random.shuffle(corners)
+    # Rule 4: Take a corner if available
+    corners = [0, 2, 6, 8]
     for i in corners:
         if board[i] == '':
             return i
 
-    # Rule 5: Take any remaining empty cell
-    empty_cell = [i for i, v in enumerate(board) if v == '']
-    if empty_cell:
-        return random.choice(empty_cell)
-
-    # No move possible (i.e board is full)
-    return -1
+    # Rule 5: Take any remaining side
+    sides = [1, 3, 5, 7]
+    for i in sides:
+        if board[i] == '':
+            return i
